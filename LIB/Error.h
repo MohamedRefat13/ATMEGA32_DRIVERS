@@ -10,8 +10,8 @@
 
 typedef enum
 { 
-	NoError ,
-	FunctioParameterError 
+	FunctioParameterError, 
+	NoError 
 }Error_t;
 
 #endif /* LIB_ERROR_H_ */

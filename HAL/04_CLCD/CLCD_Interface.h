@@ -1,12 +1,12 @@
 /*
- * CLCD_Interface.h
+ * LCD_Interface.h
  *
  *  Created on: Mar 7, 2023
  *      Author: Mohamed Refat
  */
 
-#ifndef HAL_04_CLCD_CLCD_INTERFACE_H_
-#define HAL_04_CLCD_CLCD_INTERFACE_H_
+#ifndef HAL_04_LCD_LCD_INTERFACE_H_
+#define HAL_04_LCD_LCD_INTERFACE_H_
 
 #define LCD_ROW_1  1
 #define LCD_ROW_2  2
@@ -28,17 +28,32 @@
 #define LCD_COL_15 15
 #define LCD_COL_16 16
 
-void CLCD_Init(void);
-void CLCD_ClearScreen(void);
-void CLCD_SendtChar(uint8_t Ch);
-void CLCD_SendString(uint8_t *str);
+void LCD_Init(void);
+void LCD_ClearScreen(void);
+void LCD_SendtChar(uint8_t Ch);
+void LCD_SendString(uint8_t *str);
+void LCD_SendCustomChar(uint8_t pChar_Arr[] , uint8_t Row_Num , uint8_t Col_Num);
 /**
  * @brief             :this function used to set cursor position to display your data in s specific posotion 
  * 
  * @param Row_Num     :Row_Num    --> [LCD_ROW_1 , LCD_ROW_2]
  * @param Column_Num  :Column_Num --> [LCD_COL_1 , LCD_COL_2 ... LCD_COL_16]
  */
-void CLCD_SetPosition(uint8_t Row_Num ,uint8_t Column_Num);
-void CLCD_SendNumber(sint16_t Num);
+void LCD_SetPosition(uint8_t Row_Num ,uint8_t Column_Num);
+void LCD_SendNumber(sint16_t Num);
 
-#endif /* HAL_04_CLCD_CLCD_INTERFACE_H_ */
+void LCD_EnableCursor(void);
+void LCD_DisableCursor(void);
+
+void LCD_ShiftRight(void);
+void LCD_ShiftLeft(void);
+
+void LCD_Display_On(void);
+void LCD_Display_Off(void);
+
+void LCD_Blink_On(void);
+void LCD_Blink_Off(void);
+
+void LCD_Cursor_Decrement();
+void LCD_Cursor_Increment();
+#endif /* HAL_04_LCD_LCD_INTERFACE_H_ */

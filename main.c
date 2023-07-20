@@ -18,39 +18,23 @@
 #include "HAL/03_SWITCH/SWITCH_Interface.h"
 #include "HAL/02_SSD/SSD_Interface.h"
 #include "APP/SSD_APPLICATIONS/SSD_APP.h"
+#include "HAL/06_LM35/LM35_Interface.h"
+
 int main()
 {
-	/* ADC_voidInit();
-	CLCD_Init();
-	GIE_VoidGlobalInterruptControl(GLOBAL_INTERRUPT_ENABLE);
-	uint16_tt Digital_Val ;
-	uint16_tt Analog_Val ;
+	LM35_t lm35 = {ADC_CHANNEL7  ,5};
 
-	while(1)
-	{
-		ADC_GetDigitalValue(ADC_CHANNEL4 , &Digital_Val);
-		Analog_Val = ( Digital_Val *5000.0) /1024;
-		CLCD_SendNumber(Analog_Val);
-		CLCD_SetPosition(LCD_ROW_1 , LCD_COL_6);
-		CLCD_SendString("(mv)");
+	LCD_Init();
+	ADC_voidInit();
+	uint8_t temp ;
+	 while(1)
+	 {
+		LM35_GetTemp(&lm35 , &temp);
+		LCD_SendNumber(temp);
 		_delay_ms(100);
-		CLCD_ClearScreen();
-	} */
-	
-	CLCD_Init();
-	SWITCH_t sw = {DIO_PORTB , DIO_PIN2 , SW_PULL_UP};
-	SWITCH_Init(sw);
-	uint8_t i =0 ; 
-	uint16_tt  pressed_Val ;
-	while (1)
-	{
-		pressed_Val = SWITCH_GetPressed(sw);
-		if(pressed_Val == SW_PRESSED){
-			i++;
-			CLCD_SendNumber(i);
-		}
-	}
-	
+		LCD_ClearScreen();
+
+	 }
 
 
 }

@@ -57,7 +57,7 @@ void ADC_voidInit(void)
 Error_t ADC_GetDigitalValue(uint8_t u8Channel , uint16_tt *pDigitalValue)
 {
     Error_t LocErrorReturn = NoError; 
-    if( u8Channel > ADC_CHANNEL0 && u8Channel<ADC_CHANNEL7  &&  pDigitalValue != NULL_ptr){
+    if( u8Channel >= ADC_CHANNEL0 && u8Channel <= ADC_CHANNEL7  &&  pDigitalValue != NULL_ptr){
         /* Select Channel */
         ADMUX &= ADC_CHANNEL_MASK;
         ADMUX |= u8Channel;

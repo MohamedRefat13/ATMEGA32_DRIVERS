@@ -132,6 +132,9 @@ Error_t DIO_SetLowNibbleValue(uint8_t PortNumber , uint8_t Value);
 */
 Error_t DIO_SetHighNibbleValue(uint8_t PortNumber , uint8_t Value);
 
+Error_t DIO_SetHighNibbleDirection(uint8_t PortNumber , uint8_t Direction);
+Error_t DIO_SetLowNibbleDirection(uint8_t PortNumber , uint8_t Direction);
+
 #endif /* MCAL_DIO_DIO_INTERFACE_H_ */
 
 

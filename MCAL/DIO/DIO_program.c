@@ -175,7 +175,7 @@ Error_t DIO_SetLowNibbleValue(uint8_t PortNumber , uint8_t Value)
 		case DIO_PORTB : PORTB_REG &= 0XF0 ; PORTB_REG |= Value ;  break;
 		case DIO_PORTC : PORTC_REG &= 0XF0 ; PORTC_REG |= Value ;  break;
 		case DIO_PORTD : PORTD_REG &= 0XF0 ; PORTD_REG |= Value ;  break;
-		default        : LocReturnError = FunctioParameterError ;break;
+		default        : LocReturnError = FunctioParameterError ;  break;
 	}
 	return LocReturnError ;
 }
@@ -190,7 +190,40 @@ Error_t DIO_SetHighNibbleValue(uint8_t PortNumber , uint8_t Value)
 		case DIO_PORTB : PORTB_REG &= 0X0F ; PORTB_REG |= Value ;  break;
 		case DIO_PORTC : PORTC_REG &= 0X0F ; PORTC_REG |= Value ;  break;
 		case DIO_PORTD : PORTD_REG &= 0X0F ; PORTD_REG |= Value ;  break;
-		default        : LocReturnError = FunctioParameterError ;break;
+		default        : LocReturnError = FunctioParameterError ;  break;
+	}
+	return LocReturnError ;
+}
+
+
+
+Error_t DIO_SetLowNibbleDirection(uint8_t PortNumber , uint8_t Direction)
+{
+	Error_t LocReturnError = NoError ;
+	/* This line to make sure that the high nibble in port value will not change */
+	Direction &= 0X0F;
+	switch (PortNumber)
+	{
+		case DIO_PORTA : DDRA_REG &= 0XF0 ; DDRA_REG |= Direction ;  break;
+		case DIO_PORTB : DDRB_REG &= 0XF0 ; DDRB_REG |= Direction ;  break;
+		case DIO_PORTC : DDRC_REG &= 0XF0 ; DDRC_REG |= Direction ;  break;
+		case DIO_PORTD : DDRD_REG &= 0XF0 ; DDRD_REG |= Direction ;  break;
+		default        : LocReturnError = FunctioParameterError   ;  break;
+	}
+	return LocReturnError ;
+}
+Error_t DIO_SetHighNibbleDirection(uint8_t PortNumber , uint8_t Direction)
+{
+	Error_t LocReturnError = NoError ;
+	/* This line to make sure that the high nibble in port value will not change */
+	Direction &= 0XF0;
+	switch (PortNumber)
+	{
+		case DIO_PORTA : DDRA_REG &= 0X0F ; DDRA_REG |= Direction ;  break;
+		case DIO_PORTB : DDRB_REG &= 0X0F ; DDRB_REG |= Direction ;  break;
+		case DIO_PORTC : DDRC_REG &= 0X0F ; DDRC_REG |= Direction ;  break;
+		case DIO_PORTD : DDRD_REG &= 0X0F ; DDRD_REG |= Direction ;  break;
+		default        : LocReturnError = FunctioParameterError   ;  break;
 	}
 	return LocReturnError ;
 }
