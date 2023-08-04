@@ -75,9 +75,9 @@ static void LCD_SendData( uint8_t Data)
 
 	#elif LCD_MODE == LCD_4Bit	
 		#if LCD_4_BIT_DATA_PIN == LCD_HIGH_NIBBLE
-			DIO_SetHighNibbleValue(LCD_DATA_PortNum , (Data>>4) );
-			LCD_SendFallingEndgPulse();
 			DIO_SetHighNibbleValue(LCD_DATA_PortNum , Data);
+			LCD_SendFallingEndgPulse();
+			DIO_SetHighNibbleValue(LCD_DATA_PortNum , (Data<<4) );
 			LCD_SendFallingEndgPulse();
 		#elif LCD_4_BIT_DATA_PIN == LCD_LOW_NIBBLE
 			DIO_SetLowNibbleValue(LCD_DATA_PortNum , (Data>>4) );
@@ -102,9 +102,9 @@ static void LCD_SendCommand(uint8_t Command)
 
 	#elif LCD_MODE == LCD_4Bit	
 		#if LCD_4_BIT_DATA_PIN == LCD_HIGH_NIBBLE
-			DIO_SetHighNibbleValue(LCD_DATA_PortNum , (Command>>4));
-			LCD_SendFallingEndgPulse();
 			DIO_SetHighNibbleValue(LCD_DATA_PortNum , Command);
+			LCD_SendFallingEndgPulse();
+			DIO_SetHighNibbleValue(LCD_DATA_PortNum , (Command<<4));
 			LCD_SendFallingEndgPulse();
 		#elif LCD_4_BIT_DATA_PIN == LCD_LOW_NIBBLE
 			DIO_SetLowNibbleValue(LCD_DATA_PortNum , (Command>>4) );
@@ -144,7 +144,7 @@ void LCD_SendString(uint8_t *str)
 void LCD_SetPosition(uint8_t Row_Num ,uint8_t Column_Num)
 {
 	uint8_t LocCommand ;
-	/* if the user enter invaled location AC will point to the firist place in DDRAM (0 , 0 )  */
+	/* if the user enter invaled location AC will point to the first place in DDRAM (0 , 0 )  */
 	if( Row_Num>LCD_ROW_2 || Row_Num < LCD_ROW_1 || Column_Num > LCD_COL_16 || Column_Num < LCD_COL_1 )
 	{
 		LocCommand =  LCD_DDRAM_START ;
@@ -204,7 +204,16 @@ void LCD_SendNumber(sint16_t Num)
 		LCD_SendtChar(Num_Arr[Iterator_2]);
 	}
 }
+void LCD_SendFloat(f32_t Num){
+	float Fraction_Part = Num - (uint32_t)Num;
+	uint16_tt Real_Part = Num;
+	Fraction_Part *=1000;
+	LCD_SendNumber(Real_Part);
+	LCD_SendtChar('.');
+	LCD_SendNumber((uint16_tt)Fraction_Part);
 
+	
+}	
 
 void LCD_SendCustomChar(uint8_t pChar_Arr[] , uint8_t Row_Num , uint8_t Col_Num){
 	uint8_t Iterator ;
@@ -269,12 +278,14 @@ void LCD_Blink_Off(void)
 	LCD_SendCommand(LCD_BLINK_OFF);
 }
 
-void LCD_Cursor_Decrement()
+
+void LCD_Cursor_Decrement(void)
 {
-	LCD_SendCommand(LCD_ENTRY_MODE_DEC_SHIFT_OFF);
+	LCD_SendCommand(LCD_DEC_CURSOR);
 }
 
-void LCD_Cursor_Increment()
+void LCD_Cursor_Increment(void)
 {
+	LCD_SendCommand(LCD_INC_CURSOR);
 	LCD_SendCommand(LCD_ENTRY_MODE_INC_SHIFT_OFF);
 }

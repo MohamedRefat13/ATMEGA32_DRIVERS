@@ -27,6 +27,7 @@
 #define LCD_BLINK_OFF                  0x0E
 
 #define LCD_ENTRY_MODE_DEC_SHIFT_OFF   0x04
+
 #define LCD_ENTRY_MODE_DEC_SHIFT_ON    0x05
 #define LCD_ENTRY_MODE_INC_SHIFT_OFF   0x06
 #define LCD_ENTRY_MODE_INC_SHIFT_ON    0x07
@@ -34,6 +35,9 @@
 
 #define LCD_SHIFT_LEFT                 0x18
 #define LCD_SHIFT_RIGHT                0x1C
+
+#define LCD_INC_CURSOR                 0x04 
+#define LCD_DEC_CURSOR                 0x00 
 
 #define LCD_CGRAM_START                0x40
 #define LCD_DDRAM_START                0x80

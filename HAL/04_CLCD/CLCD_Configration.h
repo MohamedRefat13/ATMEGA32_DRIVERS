@@ -15,7 +15,7 @@
  *          LCD_8Bit
  *          LCD_4Bit
  */
-#define LCD_MODE  LCD_8Bit
+#define LCD_MODE  LCD_4Bit
 /**
  * Chose Nibble [High , Low]
  * options : LCD_HIGH_NIBBLE
@@ -25,7 +25,7 @@
 /* TO DO :
     Debug High Nibble it doent work
 */
-#define LCD_4_BIT_DATA_PIN  LCD_LOW_NIBBLE
+#define LCD_4_BIT_DATA_PIN  LCD_HIGH_NIBBLE
 
 /*
     Chose Port Number for Control Pins:-

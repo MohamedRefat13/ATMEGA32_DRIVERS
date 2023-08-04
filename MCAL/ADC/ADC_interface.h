@@ -20,11 +20,17 @@ typedef enum {
     ADC_CHANNEL7
 }ADC_Channel_t;
 
-typedef enum {
+/* enum ADC_VREFF{
     ADC_AVCC ,
     ADC_AREF ,
     ADC_INTERNAL_2_56
-}ADC_VREFF;
+}; */
+
+
+#define ADC_AVCC          0
+#define ADC_AREF          1
+#define ADC_INTERNAL_2_56 2 
+
 #define ADC_FREE_RUNNING        0
 #define ADC_SINGLE_CONVERSION   1
 

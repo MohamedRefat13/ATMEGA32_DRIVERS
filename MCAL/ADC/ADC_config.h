@@ -37,6 +37,6 @@
             ADC_AREF  --> External Voltage reference (connect ADC_AREF pin to the Vcc[0 , 5v])
             ADC_INTERNAL_2_56 --> internal voltage
  */
-#define ADC_VOLTAGE_REF ADC_AVCC
+#define ADC_VOLTAGE_REF ADC_INTERNAL_2_56
 
 #endif /* MCAL_ADC_ADC_CONFIG_H_ */
