@@ -5,32 +5,17 @@
  *      Author: Mohamed Refat
  */
 
-
 #include <Util/delay.h>
 #include "LIB/STD_TYPES.h"
+#include "LIB/Error.h"
 #include "HAL/04_CLCD/CLCD_Interface.h"
-
-
-
+#define F_CPU 8000000UL
 int main()
 {
 
+	while(1)
+	{
 
-	LCD_Init();
-	 while(1)
-	 {
-
-		 LCD_SendNumber(5);
-		 LCD_Display_On();
-		 _delay_ms(500);
-		 LCD_Display_Off();
-		 _delay_ms(500);
-
-		//LCD_SendNumber(5);
-
-	 }
-
-
-
+	}
 }
 

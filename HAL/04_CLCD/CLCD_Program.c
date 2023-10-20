@@ -186,7 +186,7 @@ void LCD_SendNumber(sint16_t Num)
 		Num_Arr[Iterator++] = ( Loc_Temp + '0' ) ;
 		Num = Num / 10 ;
 	}
-	/* Revers Num_arr */
+	/* Reverse Num_arr */
 	for(Iterator_2 = 0 ; Iterator_2 < Iterator/2 ; Iterator_2++)
 	{
 		char temp = Num_Arr[Iterator_2];
@@ -205,15 +205,18 @@ void LCD_SendNumber(sint16_t Num)
 	}
 }
 void LCD_SendFloat(f32_t Num){
-	float Fraction_Part = Num - (uint32_t)Num;
-	uint16_tt Real_Part = Num;
-	Fraction_Part *=1000;
+
+	uint16_tt Real_Part = (uint16_tt)Num;
+	uint16_tt Fraction_Part = (uint16_tt)( (Num - Real_Part)*100 );
+	if(Num < 0){
+		Fraction_Part *= -1;
+		LCD_SendtChar('-');
+		Real_Part *= -1;
+	}
 	LCD_SendNumber(Real_Part);
 	LCD_SendtChar('.');
-	LCD_SendNumber((uint16_tt)Fraction_Part);
-
-	
-}	
+	LCD_SendNumber(Fraction_Part);
+}
 
 void LCD_SendCustomChar(uint8_t pChar_Arr[] , uint8_t Row_Num , uint8_t Col_Num){
 	uint8_t Iterator ;
