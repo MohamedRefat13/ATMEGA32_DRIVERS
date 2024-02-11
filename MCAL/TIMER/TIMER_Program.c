@@ -308,7 +308,7 @@ Error_t TIMER1_SetPWM_Freq(uint32_t Frequency, uint32_t Prescaler)
     }
     return kErrorState;
 }
-Error_t TIMER1_SetDutyCycle(uint8_t DutyCycle, uint8_t Channel)
+Error_t TIMER1_SetDutyCycle(f32_t DutyCycle, uint8_t Channel)
 {
     Error_t kErrorState = NoError;
     if (DutyCycle <= 100 )
