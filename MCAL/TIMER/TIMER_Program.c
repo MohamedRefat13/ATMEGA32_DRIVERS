@@ -12,6 +12,7 @@
 #include "../../LIB/BIT_MATH.h"
 #include "../../LIB/Error.h"
 
+#include "../../MCAL/DIO/DIO_interface.h"
 #include "TIMER_Interface.h"
 #include "TIMER_Private.h"
 
@@ -161,16 +162,12 @@ Error_t TIMER1_Init(uint8_t kMode, uint8_t kClock)
             break;
 
         case TIMER_PWM_MODE:
-            /* Set Timer Mode To Fast PWM 10 bit*/
-            SET_BIT(TCCR1A, TCCR1A_WGM10);
+            /* Set Timer Mode To Fast PWM and the top value is ICR1 */
+            CLR_BIT(TCCR1A, TCCR1A_WGM10);
             SET_BIT(TCCR1A, TCCR1A_WGM11);
             SET_BIT(TCCR1B, TCCR1B_WGM12);
-            CLR_BIT(TCCR1B, TCCR1B_WGM13);
-            /* Set PWM Output To Inverting 
-                Clear on Top Set On Compare 
-            */
-            SET_BIT(TCCR1A, TCCR1A_COM1A0);
-            SET_BIT(TCCR1A, TCCR1A_COM1A1);
+            SET_BIT(TCCR1B, TCCR1B_WGM13);
+
             break; 
         default: kErrorState = FunctioParameterError; 
     }
@@ -256,13 +253,78 @@ Error_t TIMER1_SetOCBPinMode(uint8_t OCPinMode){
     return kErrorState;
 }
 
-Error_t TIMER1_SetDutyCycle(uint8_t DutyCycle)
+Error_t TIMER1_SetPWM_Channel_Mode(uint8_t kChannel, uint8_t kMode)
 {
     Error_t kErrorState = NoError;
-    if (DutyCycle <= 100)
+    if ( kChannel == PWM1_OC1A )
     {
-        uint16_tt OCR_Value = RESOLUTION_10BIT -((DutyCycle/100.0) * RESOLUTION_10BIT);
-        OCR1A = OCR_Value;
+        DIO_SetPinDirection(DIO_PORTD, DIO_PIN5, DIO_OUTPUT_PIN);
+        switch (kMode)
+        {
+            case PWM1_INVERTING:
+                SET_BIT(TCCR1A, TCCR1A_COM1A0);
+                SET_BIT(TCCR1A, TCCR1A_COM1A1);
+                break;
+            case PWM1_NON_INVERTING:
+                CLR_BIT(TCCR1A, TCCR1A_COM1A0);
+                SET_BIT(TCCR1A, TCCR1A_COM1A1);
+                break;
+            default : kErrorState = FunctioParameterError;
+        }
+    }else if ( kChannel == PWM1_OC1B)
+    {
+        DIO_SetPinDirection(DIO_PORTD, DIO_PIN4, DIO_OUTPUT_PIN);
+        switch (kMode)
+        {
+            case PWM1_INVERTING:
+                SET_BIT(TCCR1B, TCCR1A_COM1B0);
+                SET_BIT(TCCR1A, TCCR1A_COM1B1);
+                break;
+            case PWM1_NON_INVERTING:
+                CLR_BIT(TCCR1A, TCCR1A_COM1B0);
+                SET_BIT(TCCR1A, TCCR1A_COM1B1);
+                break;
+            default : kErrorState = FunctioParameterError;
+        }
+    }else
+    {
+    	kErrorState = FunctioParameterError;
+    }
+    return kErrorState;
+}
+Error_t TIMER1_SetPWM_Freq(uint32_t Frequency, uint32_t Prescaler)
+{
+    Error_t kErrorState = NoError;
+    if ( Frequency <= F_CPU )
+    {
+            /**
+             * F_PWM = F_CPU/(Prescaler * (1 + TOP ))
+             */
+
+            ICR1 = ( ( F_CPU ) / ( Prescaler * Frequency ) ) - 1;
+    }else
+    {
+        kErrorState = FunctioParameterError;
+    }
+    return kErrorState;
+}
+Error_t TIMER1_SetDutyCycle(uint8_t DutyCycle, uint8_t Channel)
+{
+    Error_t kErrorState = NoError;
+    if (DutyCycle <= 100 )
+    {
+        /* ICR1 --> Top value of timer1 */
+        uint16_tt OCR_Value =  ICR1 -((DutyCycle/100.0) * ICR1);
+        if (Channel == PWM1_OC1A)
+        {
+            OCR1A = OCR_Value;
+        }else if (Channel == PWM1_OC1B)
+        {
+            OCR1B = OCR_Value;
+        }else 
+        {
+            kErrorState = FunctioParameterError;
+        }
     }else 
     {
         kErrorState = FunctioParameterError;

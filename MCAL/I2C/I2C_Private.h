@@ -64,6 +64,6 @@
 /* Data byte has been received ACK has been returned */
 #define SLAVE_READ_BYTE_ACK                   (0x80)
 
-
+#define LOW (0)
 
 #endif /* MCAL_I2C_I2C_PRIVATE_H_ */

@@ -21,12 +21,12 @@ void (*pRx_CallBackFunction)(char *pChar) = NULL_ptr;
 void (*pTx_CallBackFunction)(char *pChar) = NULL_ptr;
 char *pGlobalTransmittedStr = NULL_ptr;
 char *pGlobalReceivedStr = NULL_ptr;
-uint16 strIterator = 0;
-uint16 dataLength = 0;
+uint16_tt strIterator = 0;
+uint16_tt dataLength = 0;
 void USART_Init(unsigned short int copyBaudRate)
 {
     /* 1--> Calculate Baud Rate */
-    uint16 UBRR_Value = 0;
+    uint16_tt UBRR_Value = 0;
 
     /* Set URSEL bit to 1 to Access UCSRC */
     SET_BIT(UCSRC, UCSRC_URSEL);
@@ -58,7 +58,7 @@ void USART_Init(unsigned short int copyBaudRate)
        USART_ASYN_SPEED == USART_ASYN_NORMAL_SPEED)
 
     /* Calculate UBRR value  */
-    UBRR_Value = (uint16)(F_CPU / (16U * copyBaudRate)) - 1;
+    UBRR_Value = (uint16_tt)(F_CPU / (16U * copyBaudRate)) - 1;
 
     /* Select  Synchronous Mode */
     CLR_BIT(UCSRC, UCSRC_UMSEL);
@@ -207,7 +207,7 @@ void USART_ReceiveCharSyn(char *pChar)
 
 void USART_SendStringSyn(char *pString)
 {
-    uint16 iterator = 0;
+    uint16_tt iterator = 0;
     while ( pString[iterator] != '\0')
     {
         USART_SendChar( pString[iterator]);
@@ -218,10 +218,10 @@ void USART_SendStringSyn(char *pString)
 
 }
 
-void USART_ReceiveStringSyn(char pString[], uint16 strLength)
+void USART_ReceiveStringSyn(char pString[], uint16_tt strLength)
 {
 
-    uint16 iterator = 0;
+    uint16_tt iterator = 0;
     char temp = 0 ;
     USART_ReceiveCharSyn(&temp);
     while ( temp != 0 &&   iterator < strLength-1)
@@ -257,7 +257,7 @@ void USART_SendStringAsyn(char *pString, void (*pFun)(char *pString) )
         SET_BIT(UCSRB, UCSRB_TXCIE);
     }
 }
-void USART_ReceiveStringAsyn(char *pString, uint16 strLength, void (*pFun)(char *pString))
+void USART_ReceiveStringAsyn(char *pString, uint16_tt strLength, void (*pFun)(char *pString))
 {
     if ( pString != NULL_ptr && pFun != NULL_ptr)
     {

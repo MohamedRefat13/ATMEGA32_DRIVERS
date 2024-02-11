@@ -8,6 +8,10 @@
 #ifndef MCAL_TIMER_TIMER_PRIVATE_H_
 #define MCAL_TIMER_TIMER_PRIVATE_H_
 
+#ifndef F_CPU
+#define F_CPU (8000000LU)
+#endif
+
 /* Registers */
 #define OCR0   ( *(volatile uint8_t *)(0X5C) ) /* Output Compare Register */
 #define TIMSK  ( *(volatile uint8_t *)(0X59) ) /* Timer Interrupt Mask Register */
@@ -26,6 +30,10 @@
 #define OCR1BH ( *(volatile uint8_t *)(0X49) )
 #define OCR1BL ( *(volatile uint8_t *)(0X48) )
 #define OCR1B  ( *(volatile uint16_tt *)(0X48) )
+#define OCR1A  ( *(volatile uint16_tt *)(0X4A) )
+#define ICR1BH ( *(volatile uint8_t *)(0X47) )
+#define ICR1BL ( *(volatile uint8_t *)(0X46) )
+#define ICR1   ( *(volatile uint16_tt *)(0X46) )
 
 #define TCCR2  ( *(volatile uint8_t *)(0X45) )
 #define TCNT2  ( *(volatile uint8_t *)(0X44) )
