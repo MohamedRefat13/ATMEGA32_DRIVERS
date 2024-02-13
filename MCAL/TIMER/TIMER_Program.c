@@ -277,7 +277,7 @@ Error_t TIMER1_SetPWM_Channel_Mode(uint8_t kChannel, uint8_t kMode)
         switch (kMode)
         {
             case PWM1_INVERTING:
-                SET_BIT(TCCR1B, TCCR1A_COM1B0);
+                SET_BIT(TCCR1A, TCCR1A_COM1B0);
                 SET_BIT(TCCR1A, TCCR1A_COM1B1);
                 break;
             case PWM1_NON_INVERTING:
