@@ -23,9 +23,9 @@ Error_t SERVO_Init(uint8_t kChannel);
 /**
  * @brief This function is used to set the Servo Motor angle
  * 
- * @param copyAngle [ -90 : 90 ]
+ * @param copyAngle [ 0 : 180 ]
  * @param kChannel  OPTIONS: [ SERVO_OC1A_PIN , SERVO_OC1B_PIN ] 
  * @return Error_t 
  */
-Error_t SERVO_SetAngle(sint8_t copyAngle, uint8_t kChannel);
+Error_t SERVO_SetAngle(uint8_t copyAngle, uint8_t kChannel);
 #endif /* HAL_08_SERVO_SERVO_INTERFACE_H_ */

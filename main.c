@@ -15,19 +15,18 @@
 #include "HAL/08_SERVO/SERVO_Interface.h"
 int main()
 {
-	SERVO_Init(SERVO_OC1A_PIN);
 	SERVO_Init(SERVO_OC1B_PIN);
 
 	while(1){
-		for (sint8_t i = 0; i <= 90 ; i+=10)
+		for (int i = 0; i <= 180 ; i+=10)
 		{
 			SERVO_SetAngle(i,SERVO_OC1B_PIN);
-			_delay_ms(1000);
+			_delay_ms(500);
 		}
-		for (sint8_t i = 0; i >= -90 ; i-=10)
+		for (int i = 180; i >= 0 ; i-=10)
 		{
-			SERVO_SetAngle(i,SERVO_OC1A_PIN);
-			_delay_ms(1000);
+			SERVO_SetAngle(i,SERVO_OC1B_PIN);
+			_delay_ms(500);
 		}
 	}
 }
