@@ -18,7 +18,7 @@
 
 void(*pOVF_CallBackFunctions[3])(void) = {NULL_ptr};
 void(*pCTC_CallBackFunctions[4])(void) = {NULL_ptr};
-void(*pICU_CallBackFunction)(void) = NULL_ptr;
+//void(*pICU_CallBackFunction)(void) = NULL_ptr;
 
 
 Error_t TIMER0_Init(uint8_t kMode, uint8_t kClock)
@@ -353,7 +353,7 @@ Error_t TIMER1_SetCallBackFun(uint8_t interruptSource, void (*pTimer_ISR)(void))
                 break;
 
             case TIMER1_INTERRUPT_ICU1 :
-                pICU_CallBackFunction = pTimer_ISR;
+                //pICU_CallBackFunction = pTimer_ISR;
                 break;
 
             default: kErrorState = FunctioParameterError;
@@ -536,15 +536,15 @@ void __vector_8(void)
         pCTC_CallBackFunctions[3]();
     }
 }
-/*TIMER1 ICU Mode ISR*/
-void __vector_6(void) __attribute__((signal));
-void __vector_6(void)
-{
-    if(pICU_CallBackFunction!=NULL_ptr)
-    {
-        pICU_CallBackFunction();
-    }
-}
+// /*TIMER1 ICU Mode ISR*/
+// void __vector_6(void) __attribute__((signal));
+// void __vector_6(void)
+// {
+//     if(pICU_CallBackFunction!=NULL_ptr)
+//     {
+//         pICU_CallBackFunction();
+//     }
+// }
 
 /*TIMER2 Normal Mode ISR*/
 void __vector_5(void) __attribute__((signal));

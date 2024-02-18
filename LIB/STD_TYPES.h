@@ -4,6 +4,7 @@
 //Standard data type
 typedef unsigned long  int  uint32_t;
 typedef unsigned short int  uint16_tt;
+typedef unsigned short int  uint16;
 typedef signed   long  int  sint32_t;
 typedef signed   short int  sint16_t;
 
