@@ -45,20 +45,6 @@ void ICU_Init(uint8_t prescaler);
 Error_t ICU_SelectEdge(uint8_t edge);
 
 /**
- * @brief This function is used to set the prescaler if ICU [TIMER1]
- * 
- * @param prescaler OPTIONS: 
- *                          ICU_PRESCALER_1
- *                          ICU_PRESCALER_8
- *                          ICU_PRESCALER_64
- *                          ICU_PRESCALER_128
- *                          ICU_PRESCALER_1024
- *
- * @note : after calling this function timer 1 will start to cout
- * @return Error_t 
- */
-Error_t ICU_SetPrescaler(uint8_t prescaler);
-/**
  * @brief This function is used to set the ISR value
  *          this function will be called when a capture occurred
  * 
