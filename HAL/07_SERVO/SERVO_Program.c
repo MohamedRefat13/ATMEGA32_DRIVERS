@@ -28,7 +28,7 @@ Error_t SERVO_Init(uint8_t kChannel)
     }
     return kErrorState;
 }
-Error_t SERVO_SetAngle(sint8_t copyAngle, uint8_t kChannel)
+Error_t SERVO_SetAngle(uint8_t copyAngle, uint8_t kChannel)
 {
     Error_t kErrorState = NoError;
     if ( copyAngle <= 180 &&

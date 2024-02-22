@@ -34,7 +34,6 @@ void ICU_Init(uint8_t prescaler)
     TCCR1B &= ~(TIMER_CLOCK_MASK);
     prescaler &= (TIMER_CLOCK_MASK);
     TCCR1B |= prescaler;
-    return 0;
 }
 Error_t ICU_SelectEdge(uint8_t edge)
 {
