@@ -159,7 +159,7 @@ Error_t TIMER1_SetPWM_Freq(uint32_t Frequency, uint32_t Prescaler);
  * @param Channel    : [PWM1_OC1A, PWM1_OC1B]
  * @return Error_t 
  */
-Error_t TIMER1_SetDutyCycle(uint8_t DutyCycle, uint8_t Channel);
+Error_t TIMER1_SetDutyCycle(f32_t DutyCycle, uint8_t Channel);
 Error_t TIMER1_SetCallBackFun(uint8_t interruptSource, void (*pTimer_ISR)(void));
 
 

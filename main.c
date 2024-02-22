@@ -1,23 +1,32 @@
-/*
- * main.c
- *
- *  Created on: Oct 21, 2023
- *      Author: Mohamed Refat
+/**
+ * @file main.c
+ * @author Mohamed Refat 
+ * @brief 
+ * @version 0.1
+ * @date 2024-02-12
+ * 
+ * @copyright Copyright (c) 2024
+ * 
  */
-
 #include <Util/delay.h>
-#include "MCAL/DIO/DIO_interface.h"
-#include "MCAL/GIE/GIE_Interface.h"
-#include "MCAL/TIMER/TIMER_Interface.h"
-#include "HAL/01_LED/LED_Interface.h"
 #include "LIB/STD_TYPES.h"
+#include "MCAL/DIO/DIO_interface.h"
+#include "HAL/01_LED/LED_Interface.h"
+#include "HAL/08_SERVO/SERVO_Interface.h"
 int main()
 {
-	TIMER1_SetPWM_Channel_Mode(PWM1_OC1B, PWM1_INVERTING);
-	TIMER1_SetPWM_Freq(50, 64);
-	TIMER1_SetDutyCycle(50,PWM1_OC1B);
-	TIMER1_Init(TIMER_PWM_MODE, TIMER1_PRESCALER_64);
-	while(1){
+	SERVO_Init(SERVO_OC1B_PIN);
 
+	while(1){
+		for (int i = 0; i <= 180 ; i+=10)
+		{
+			SERVO_SetAngle(i,SERVO_OC1B_PIN);
+			_delay_ms(500);
+		}
+		for (int i = 180; i >= 0 ; i-=10)
+		{
+			SERVO_SetAngle(i,SERVO_OC1B_PIN);
+			_delay_ms(500);
+		}
 	}
 }

@@ -18,7 +18,7 @@
 
 void(*pOVF_CallBackFunctions[3])(void) = {NULL_ptr};
 void(*pCTC_CallBackFunctions[4])(void) = {NULL_ptr};
-void(*pICU_CallBackFunction)(void) = NULL_ptr;
+//void(*pICU_CallBackFunction)(void) = NULL_ptr;
 
 
 Error_t TIMER0_Init(uint8_t kMode, uint8_t kClock)
@@ -277,7 +277,7 @@ Error_t TIMER1_SetPWM_Channel_Mode(uint8_t kChannel, uint8_t kMode)
         switch (kMode)
         {
             case PWM1_INVERTING:
-                SET_BIT(TCCR1B, TCCR1A_COM1B0);
+                SET_BIT(TCCR1A, TCCR1A_COM1B0);
                 SET_BIT(TCCR1A, TCCR1A_COM1B1);
                 break;
             case PWM1_NON_INVERTING:
@@ -308,7 +308,7 @@ Error_t TIMER1_SetPWM_Freq(uint32_t Frequency, uint32_t Prescaler)
     }
     return kErrorState;
 }
-Error_t TIMER1_SetDutyCycle(uint8_t DutyCycle, uint8_t Channel)
+Error_t TIMER1_SetDutyCycle(f32_t DutyCycle, uint8_t Channel)
 {
     Error_t kErrorState = NoError;
     if (DutyCycle <= 100 )
@@ -353,7 +353,7 @@ Error_t TIMER1_SetCallBackFun(uint8_t interruptSource, void (*pTimer_ISR)(void))
                 break;
 
             case TIMER1_INTERRUPT_ICU1 :
-                pICU_CallBackFunction = pTimer_ISR;
+                //pICU_CallBackFunction = pTimer_ISR;
                 break;
 
             default: kErrorState = FunctioParameterError;
@@ -536,15 +536,15 @@ void __vector_8(void)
         pCTC_CallBackFunctions[3]();
     }
 }
-/*TIMER1 ICU Mode ISR*/
-void __vector_6(void) __attribute__((signal));
-void __vector_6(void)
-{
-    if(pICU_CallBackFunction!=NULL_ptr)
-    {
-        pICU_CallBackFunction();
-    }
-}
+// /*TIMER1 ICU Mode ISR*/
+// void __vector_6(void) __attribute__((signal));
+// void __vector_6(void)
+// {
+//     if(pICU_CallBackFunction!=NULL_ptr)
+//     {
+//         pICU_CallBackFunction();
+//     }
+// }
 
 /*TIMER2 Normal Mode ISR*/
 void __vector_5(void) __attribute__((signal));
